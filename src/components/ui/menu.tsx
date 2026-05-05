@@ -137,7 +137,12 @@ const MenuItem = ({ className, intent, children, ...props }: MenuItemProps) => {
       )}
       textValue={textValue}
       render={(domProps) =>
-        "href" in domProps ? <NextLink {...domProps} /> : <span {...domProps} />
+        "href" in domProps && domProps.href ? (
+          <NextLink {...domProps} />
+        ) : (
+          // @ts-expect-error
+          <div {...domProps} />
+        )
       }
       {...props}
     >

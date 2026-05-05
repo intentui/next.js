@@ -24,10 +24,10 @@ export function Link({ className, ref, ...props }: LinkProps) {
         ],
         className,
       )}
-      {...props}
       render={(domProps) =>
         "href" in domProps ? <NextLink {...domProps} /> : <span {...domProps} />
       }
+      {...props}
     />
   );
 }
