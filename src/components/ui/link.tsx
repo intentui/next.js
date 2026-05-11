@@ -24,9 +24,6 @@ export function Link({ className, ref, ...props }: LinkProps) {
         ],
         className,
       )}
-      render={(domProps) =>
-        "href" in domProps ? <NextLink {...domProps} /> : <span {...domProps} />
-      }
       {...props}
     />
   );
