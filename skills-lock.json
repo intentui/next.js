@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "intentui": {
+      "source": "irsyadadl/intentui",
+      "sourceType": "github",
+      "skillPath": "skills/intentui/SKILL.md",
+      "computedHash": "76c8aca6aff82260941076ea067ddca9b4ae97112e6e00a63b3229a605e5d505"
+    },
+    "intentui-migrate": {
+      "source": "irsyadadl/intentui",
+      "sourceType": "github",
+      "skillPath": "skills/intentui-migrate/SKILL.md",
+      "computedHash": "4f233a55a2ee32015b2a15454d42771014de7ddb974875878323f84374bcd760"
+    }
+  }
+}

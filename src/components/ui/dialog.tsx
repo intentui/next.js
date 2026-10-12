@@ -2,34 +2,117 @@
 
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Button as PrimitiveButton } from "react-aria-components/Button";
-import { Dialog as PrimitiveDialog } from "react-aria-components/Dialog";
+import {
+  type DialogProps as DialogPrimitiveProps,
+  DialogTrigger as DialogTriggerPrimitive,
+  Dialog as PrimitiveDialog,
+} from "react-aria-components/Dialog";
 import { Heading, type HeadingProps } from "react-aria-components/Heading";
+import {
+  Modal,
+  ModalOverlay,
+  type ModalOverlayProps,
+} from "react-aria-components/Modal";
 import type { TextProps } from "react-aria-components/Text";
 import { twMerge } from "tailwind-merge";
 import { cx } from "@/lib/primitive";
 import { Button, type ButtonProps } from "./button";
 
-const Dialog = ({
-  role = "dialog",
-  className,
-  ...props
-}: React.ComponentProps<typeof PrimitiveDialog>) => {
-  return (
-    <PrimitiveDialog
-      data-slot="dialog"
-      role={role}
-      className={twMerge(
-        "peer/dialog group/dialog relative flex max-h-[calc(var(--visual-viewport-height)-var(--visual-viewport-vertical-padding))] flex-col overflow-hidden outline-hidden [--gutter:--spacing(6)] sm:[--gutter:--spacing(8)]",
-        className,
-      )}
-      {...props}
-    />
-  );
+export const DialogTrigger = DialogTriggerPrimitive;
+
+const sizes = {
+  "2xs": "sm:max-w-2xs",
+  xs: "sm:max-w-xs",
+  sm: "sm:max-w-sm",
+  md: "sm:max-w-md",
+  lg: "sm:max-w-lg",
+  xl: "sm:max-w-xl",
+  "2xl": "sm:max-w-2xl",
+  "3xl": "sm:max-w-3xl",
+  "4xl": "sm:max-w-4xl",
+  "5xl": "sm:max-w-5xl",
+  fullscreen: "",
 };
 
-const DialogTrigger = ({ className, ...props }: ButtonProps) => (
-  <PrimitiveButton className={cx("cursor-pointer", className)} {...props} />
-);
+interface DialogProps
+  extends Omit<ModalOverlayProps, "children">,
+    Pick<
+      DialogPrimitiveProps,
+      "aria-label" | "aria-labelledby" | "role" | "children"
+    > {
+  size?: keyof typeof sizes;
+  closeButton?: boolean;
+  overlay?: Pick<ModalOverlayProps, "className">;
+}
+const Dialog = ({
+  className,
+  isDismissable: isDismissableInternal,
+  children,
+  overlay,
+  size = "md",
+  role = "dialog",
+  closeButton = true,
+  ...props
+}: DialogProps) => {
+  const isDismissable = isDismissableInternal ?? role !== "alertdialog";
+  return (
+    <ModalOverlay
+      data-slot="dialog-overlay"
+      isDismissable={isDismissable}
+      className={cx(
+        "absolute top-0 left-0 z-50 h-[max(var(--page-height),100dvh)] w-[max(var(--page-width),100vw)] overflow-clip",
+        "bg-background/15 backdrop-blur-[1px] motion-reduce:backdrop-blur-none",
+        "entering:fade-in entering:animate-in entering:duration-300 entering:ease-out",
+        "exiting:fade-out exiting:animate-out exiting:ease-in",
+        overlay?.className,
+      )}
+      {...props}
+    >
+      <div
+        className={twMerge(
+          "sticky top-0 flex h-(--visual-viewport-height,100dvh) w-(--visual-viewport-width,100vw) flex-col items-center justify-end sm:grid sm:grid-rows-[1fr_auto_3fr] sm:justify-normal sm:justify-items-center",
+          size === "fullscreen" ? "md:p-3" : "md:p-4",
+        )}
+      >
+        <Modal
+          data-slot="dialog-content"
+          className={cx(
+            "row-start-2 w-full text-start align-middle",
+            "[--visual-viewport-vertical-padding:16px]",
+            size === "fullscreen"
+              ? "**:data-[slot=dialog-body]:min-h-[calc(var(--visual-viewport-height)-var(--visual-viewport-vertical-padding)-var(--dialog-header-height)-var(--dialog-footer-height))] sm:[--visual-viewport-vertical-padding:16px]"
+              : "sm:[--visual-viewport-vertical-padding:32px]",
+            "relative overflow-hidden bg-overlay text-overlay-foreground",
+            "inset-shadow-xs rounded-t-2xl ring ring-muted-foreground/25 drop-shadow-xl sm:rounded-2xl dark:ring-border",
+            sizes[size],
+            "entering:slide-in-from-bottom sm:entering:zoom-in-95 sm:entering:slide-in-from-bottom-0 entering:animate-in entering:duration-300 entering:ease-out",
+            "exiting:slide-out-to-bottom sm:exiting:zoom-out-95 sm:exiting:slide-out-to-bottom-0 exiting:animate-out exiting:ease-in",
+            className,
+          )}
+        >
+          <PrimitiveDialog
+            aria-label={props["aria-label"] ?? undefined}
+            aria-labelledby={props["aria-labelledby"]}
+            data-slot="dialog"
+            role={role}
+            className={twMerge(
+              "peer/dialog group/dialog relative flex max-h-[calc(var(--visual-viewport-height)-var(--visual-viewport-vertical-padding))] flex-col overflow-hidden outline-hidden [--gutter:--spacing(6)] sm:[--gutter:--spacing(8)]",
+            )}
+          >
+            {(values) => (
+              <>
+                {typeof children === "function" ? children(values) : children}
+                {closeButton && (
+                  <DialogCloseIcon isDismissable={isDismissable} />
+                )}
+              </>
+            )}
+          </PrimitiveDialog>
+        </Modal>
+      </div>
+    </ModalOverlay>
+  );
+};
 
 interface DialogHeaderProps extends Omit<React.ComponentProps<"div">, "title"> {
   title?: string;
@@ -66,7 +149,7 @@ const DialogTitle = ({ className, ref, ...props }: DialogTitleProps) => (
     slot="title"
     ref={ref}
     className={twMerge(
-      "text-balance font-semibold text-fg text-lg/6 sm:text-base/6",
+      "text-balance font-semibold text-foreground text-lg/6 sm:text-base/6",
       className,
     )}
     {...props}
@@ -84,7 +167,7 @@ const DialogDescription = ({
   <p
     data-slot="description"
     className={twMerge(
-      "text-pretty text-base/6 text-muted-fg group-disabled:opacity-50 sm:text-sm/6",
+      "text-pretty text-base/6 text-muted-foreground group-disabled:opacity-50 sm:text-sm/6",
       className,
     )}
     ref={ref}
@@ -152,6 +235,7 @@ export type {
   DialogDescriptionProps,
   DialogFooterProps,
   DialogHeaderProps,
+  DialogProps,
   DialogTitleProps,
 };
 export {
@@ -163,5 +247,4 @@ export {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 };

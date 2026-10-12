@@ -25,55 +25,58 @@ If you want to use the typography plugin, uncomment the line below.
 
   --color-ring: var(--ring);
 
-  --color-bg: var(--bg);
-  --color-fg: var(--fg);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
 
   --color-primary: var(--primary);
-  --color-primary-fg: var(--primary-fg);
+  --color-primary-foreground: var(--primary-foreground);
   --color-primary-subtle: var(--primary-subtle);
-  --color-primary-subtle-fg: var(--primary-subtle-fg);
+  --color-primary-subtle-foreground: var(--primary-subtle-foreground);
 
   --color-secondary: var(--secondary);
-  --color-secondary-fg: var(--secondary-fg);
+  --color-secondary-foreground: var(--secondary-foreground);
 
   --color-accent: var(--accent);
-  --color-accent-fg: var(--accent-fg);
+  --color-accent-foreground: var(--accent-foreground);
 
   --color-success: var(--success);
-  --color-success-fg: var(--success-fg);
+  --color-success-foreground: var(--success-foreground);
   --color-success-subtle: var(--success-subtle);
-  --color-success-subtle-fg: var(--success-subtle-fg);
+  --color-success-subtle-foreground: var(--success-subtle-foreground);
 
   --color-danger: var(--danger);
-  --color-danger-fg: var(--danger-fg);
+  --color-danger-foreground: var(--danger-foreground);
   --color-danger-subtle: var(--danger-subtle);
-  --color-danger-subtle-fg: var(--danger-subtle-fg);
+  --color-danger-subtle-foreground: var(--danger-subtle-foreground);
 
   --color-warning: var(--warning);
-  --color-warning-fg: var(--warning-fg);
+  --color-warning-foreground: var(--warning-foreground);
   --color-warning-subtle: var(--warning-subtle);
-  --color-warning-subtle-fg: var(--warning-subtle-fg);
+  --color-warning-subtle-foreground: var(--warning-subtle-foreground);
 
   --color-info: var(--info);
-  --color-info-fg: var(--info-fg);
+  --color-info-foreground: var(--info-foreground);
   --color-info-subtle: var(--info-subtle);
-  --color-info-subtle-fg: var(--info-subtle-fg);
+  --color-info-subtle-foreground: var(--info-subtle-foreground);
 
   --color-muted: var(--muted);
-  --color-muted-fg: var(--muted-fg);
+  --color-muted-foreground: var(--muted-foreground);
 
   --color-overlay: var(--overlay);
-  --color-overlay-fg: var(--overlay-fg);
+  --color-overlay-foreground: var(--overlay-foreground);
 
   --color-navbar: var(--navbar);
-  --color-navbar-fg: var(--navbar-fg);
+  --color-navbar-foreground: var(--navbar-foreground);
 
   --color-sidebar: var(--sidebar);
-  --color-sidebar-fg: var(--sidebar-fg);
+  --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-fg: var(--sidebar-primary-fg);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
   --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-fg: var(--sidebar-accent-fg);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
@@ -82,87 +85,67 @@ If you want to use the typography plugin, uncomment the line below.
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-
-  --animate-marquee: marquee var(--duration) infinite linear;
-  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
-
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-
-    to {
-      transform: translateX(calc(-100% - var(--gap)));
-    }
-  }
-
-  @keyframes marquee-vertical {
-    from {
-      transform: translateY(0);
-    }
-
-    to {
-      transform: translateY(calc(-100% - var(--gap)));
-    }
-  }
 }
 
 :root {
-  --bg: var(--color-white);
-  --fg: var(--color-zinc-950);
+  --background: var(--color-white);
+  --foreground: var(--color-zinc-950);
+
+  --card: var(--background);
+  --card-foreground: var(--foreground);
 
   --primary: oklch(0.546 0.245 262.881);
-  --primary-fg: oklch(1 0 0);
+  --primary-foreground: oklch(1 0 0);
 
   --primary-subtle: oklch(0.623 0.214 259.815 / 0.15);
-  --primary-subtle-fg: oklch(0.488 0.243 264.376);
+  --primary-subtle-foreground: oklch(0.488 0.243 264.376);
 
   --secondary: var(--color-zinc-100);
-  --secondary-fg: var(--color-zinc-950);
+  --secondary-foreground: var(--color-zinc-950);
 
   --overlay: var(--color-white);
-  --overlay-fg: var(--color-zinc-950);
+  --overlay-foreground: var(--color-zinc-950);
 
   --accent: oklch(0.92 0.004 286.32);
-  --accent-fg: oklch(0.141 0.005 285.823);
+  --accent-foreground: oklch(0.141 0.005 285.823);
 
   --muted: var(--color-zinc-100);
-  --muted-fg: var(--color-zinc-600);
+  --muted-foreground: var(--color-zinc-600);
 
   --success: var(--color-emerald-600);
-  --success-fg: var(--color-white);
+  --success-foreground: var(--color-white);
   --success-subtle: theme('color-emerald-500/15%');
-  --success-subtle-fg: var(--color-emerald-700);
+  --success-subtle-foreground: var(--color-emerald-700);
 
   --info: var(--color-sky-500);
-  --info-fg: var(--color-white);
+  --info-foreground: var(--color-white);
   --info-subtle: theme('color-sky-500/15%');
-  --info-subtle-fg: var(--color-sky-700);
+  --info-subtle-foreground: var(--color-sky-700);
 
   --warning: var(--color-amber-400);
-  --warning-fg: var(--color-amber-950);
+  --warning-foreground: var(--color-amber-950);
   --warning-subtle: theme('color-amber-400/20%');
-  --warning-subtle-fg: var(--color-amber-700);
+  --warning-subtle-foreground: var(--color-amber-700);
 
   --danger: var(--color-red-600);
-  --danger-fg: var(--color-red-50);
+  --danger-foreground: var(--color-red-50);
   --danger-subtle: theme('color-red-500/15%');
-  --danger-subtle-fg: var(--color-red-700);
+  --danger-subtle-foreground: var(--color-red-700);
 
   --border: var(--color-zinc-300);
   --input: var(--color-zinc-300);
   --ring: var(--primary);
 
   --navbar: oklch(0.988 0 0);
-  --navbar-fg: var(--color-zinc-950);
+  --navbar-foreground: var(--color-zinc-950);
 
   --sidebar: oklch(0.985 0 0);
-  --sidebar-fg: oklch(0.141 0.005 285.823);
+  --sidebar-foreground: oklch(0.141 0.005 285.823);
 
   --sidebar-primary: oklch(0.623 0.214 259.815 / 0.15);
-  --sidebar-primary-fg: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.488 0.243 264.376);
   --sidebar-accent: oklch(0.92 0.004 286.32);
-  --sidebar-accent-fg: oklch(0.141 0.005 285.823);
+  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
   --sidebar-border: oklch(0.901 0.006 286.286);
   --sidebar-ring: oklch(0.546 0.245 262.881);
 
@@ -183,64 +166,67 @@ If you want to use the typography plugin, uncomment the line below.
 
   ::selection {
     background-color: var(--color-primary-subtle);
-    color: var(--color-primary-subtle-fg);
+    color: var(--color-primary-subtle-foreground);
   }
 }
 
 .dark {
-  --bg: oklch(0.17 0.006 285.885);
-  --fg: var(--color-zinc-50);
+  --background: oklch(0.17 0.006 285.885);
+  --foreground: var(--color-zinc-50);
+
+  --card: var(--background);
+  --card-foreground: var(--foreground);
 
   --primary: oklch(0.546 0.245 262.881);
-  --primary-fg: oklch(1 0 0);
+  --primary-foreground: oklch(1 0 0);
 
   --primary-subtle: oklch(0.623 0.214 259.815 / 0.1);
-  --primary-subtle-fg: oklch(0.707 0.165 254.624);
+  --primary-subtle-foreground: oklch(0.707 0.165 254.624);
 
   --secondary: var(--color-zinc-800);
-  --secondary-fg: var(--color-zinc-50);
+  --secondary-foreground: var(--color-zinc-50);
 
   --accent: oklch(0.32 0.013 285.805);
-  --accent-fg: oklch(0.985 0 0);
+  --accent-foreground: oklch(0.985 0 0);
 
   --muted: var(--color-zinc-900);
-  --muted-fg: var(--color-zinc-400);
+  --muted-foreground: var(--color-zinc-400);
 
   --overlay: oklch(0.234 0.006 286.033);
-  --overlay-fg: var(--color-zinc-50);
+  --overlay-foreground: var(--color-zinc-50);
 
   --success: var(--color-emerald-600);
-  --success-fg: var(--color-white);
+  --success-foreground: var(--color-white);
   --success-subtle: theme('color-emerald-500/10%');
-  --success-subtle-fg: var(--color-emerald-400);
+  --success-subtle-foreground: var(--color-emerald-400);
 
   --info: var(--color-sky-500);
-  --info-fg: var(--color-white);
+  --info-foreground: var(--color-white);
   --info-subtle: theme('color-sky-500/10%');
-  --info-subtle-fg: var(--color-sky-300);
+  --info-subtle-foreground: var(--color-sky-300);
 
   --warning: var(--color-amber-400);
-  --warning-fg: var(--color-amber-950);
+  --warning-foreground: var(--color-amber-950);
   --warning-subtle: theme('color-amber-400/10%');
-  --warning-subtle-fg: var(--color-amber-400);
+  --warning-subtle-foreground: var(--color-amber-400);
 
   --danger: var(--color-red-600);
-  --danger-fg: var(--color-red-50);
+  --danger-foreground: var(--color-red-50);
   --danger-subtle: theme('color-red-500/10%');
-  --danger-subtle-fg: var(--color-red-400);
+  --danger-subtle-foreground: var(--color-red-400);
 
   --border: oklch(0.30 0.013 285.805);
   --input: oklch(0.310 0.013 285.805);
 
   --navbar: oklch(0.17 0.006 285.885);
-  --navbar-fg: var(--color-zinc-50);
+  --navbar-foreground: var(--color-zinc-50);
 
   --sidebar: oklch(0.180 0.006 285.885);
-  --sidebar-fg: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.623 0.214 259.815 / 0.1);
-  --sidebar-primary-fg: oklch(0.707 0.165 254.624);
+  --sidebar-primary-foreground: oklch(0.707 0.165 254.624);
   --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-fg: oklch(0.985 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.274 0.006 286.033);
   --sidebar-ring: oklch(0.546 0.245 262.881);
 
@@ -301,8 +287,8 @@ If you want to use the typography plugin, uncomment the line below.
   }
 
   body {
-    background-color: var(--bg);
-    color: var(--fg);
+    background-color: var(--background);
+    color: var(--foreground);
   }
 }
 

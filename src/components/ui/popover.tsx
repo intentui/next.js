@@ -1,13 +1,9 @@
 "use client";
 
 import {
-  DialogTrigger as DialogTriggerPrimitive,
-  type DialogTriggerProps,
-} from "react-aria-components/Dialog";
-import {
   OverlayArrow,
   Popover as PopoverPrimitive,
-  type PopoverProps,
+  type PopoverProps as PopoverPrimitiveProps,
 } from "react-aria-components/Popover";
 import { cx } from "@/lib/primitive";
 import {
@@ -17,30 +13,25 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "./dialog";
-
-const Popover = (props: DialogTriggerProps) => {
-  return <DialogTriggerPrimitive {...props} />;
-};
 
 const PopoverTitle = DialogTitle;
 const PopoverHeader = DialogHeader;
 const PopoverBody = DialogBody;
 const PopoverFooter = DialogFooter;
 
-interface PopoverContentProps extends PopoverProps {
+interface PopoverProps extends PopoverPrimitiveProps {
   arrow?: boolean;
   ref?: React.Ref<HTMLDivElement>;
 }
 
-const PopoverContent = ({
+const Popover = ({
   children,
   arrow = false,
   className,
   ref,
   ...props
-}: PopoverContentProps) => {
+}: PopoverProps) => {
   const offset = props.offset ?? (arrow ? 12 : 8);
   return (
     <PopoverPrimitive
@@ -48,7 +39,8 @@ const PopoverContent = ({
       offset={offset}
       className={cx(
         "[--visual-viewport-vertical-padding:16px] sm:[--visual-viewport-vertical-padding:32px]",
-        "group/popover min-w-(--trigger-width) max-w-xs origin-(--trigger-anchor-point) rounded-(--popover-radius) bg-overlay text-overlay-fg shadow-xs outline-hidden ring ring-muted-fg/20 drop-shadow-xl transition-transform [--gutter:--spacing(6)] [--popover-radius:var(--radius-xl)] sm:text-sm dark:ring-border dark:backdrop-saturate-200 **:[[role=dialog]]:[--gutter:--spacing(6)]",
+        "max-h-[calc(var(--visual-viewport-height)-var(--visual-viewport-vertical-padding)*2)]",
+        "group/popover min-w-(--trigger-width) max-w-xs origin-(--trigger-anchor-point) rounded-(--popover-radius) bg-overlay text-overlay-foreground shadow-xs outline-hidden ring ring-muted-foreground/20 drop-shadow-xl transition-transform [--gutter:--spacing(6)] [--popover-radius:var(--radius-xl)] sm:text-sm dark:ring-border dark:backdrop-saturate-200 **:[[role=dialog]]:[--gutter:--spacing(6)]",
         "entering:fade-in exiting:fade-out entering:animate-in exiting:animate-out",
         "placement-left:entering:slide-in-from-right-1 placement-right:entering:slide-in-from-left-1 placement-top:entering:slide-in-from-bottom-1 placement-bottom:entering:slide-in-from-top-1",
         "placement-left:exiting:slide-out-to-right-1 placement-right:exiting:slide-out-to-left-1 placement-top:exiting:slide-out-to-bottom-1 placement-bottom:exiting:slide-out-to-top-1",
@@ -73,7 +65,7 @@ const PopoverContent = ({
           )}
           <div
             data-slot="popover-inner"
-            className="max-h-[inherit] overflow-y-auto"
+            className="flex max-h-[inherit] flex-col overflow-y-auto"
           >
             {typeof children === "function" ? children(values) : children}
           </div>
@@ -83,19 +75,16 @@ const PopoverContent = ({
   );
 };
 
-const PopoverTrigger = DialogTrigger;
 const PopoverClose = DialogClose;
 const PopoverDescription = DialogDescription;
 
-export type { PopoverContentProps, PopoverProps };
+export type { PopoverProps };
 export {
   Popover,
   PopoverBody,
   PopoverClose,
-  PopoverContent,
   PopoverDescription,
   PopoverFooter,
   PopoverHeader,
   PopoverTitle,
-  PopoverTrigger,
 };
